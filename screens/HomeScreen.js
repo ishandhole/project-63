@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Text, View, StyleSheet, TextInput, TouchableOpacity, } from 'react-native';
 import { Header } from 'react-native-elements';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
+import dictionary from '../database'
 
 export default class HomeScreen extends Component {
     constructor() {
@@ -13,29 +14,27 @@ export default class HomeScreen extends Component {
         }
     }
 
-    getWord = (word) => {
-        var url = 'https://api.dictionaryapi.dev/api/v2/entries/en/' + word;
-        return fetch(url)
-            .then((data) => {
-                return data.json();
+
+    getWord = (text) => {
+        var text = text.toLowerCase()
+        try {
+            var word = dictionary[text]["word"]
+            var lexicalCategory = dictionary[text]["lexicalCategory"]
+            var definition = dictionary[text]["definition"]
+            this.setState({
+                "word": word,
+                "lexicalCategory": lexicalCategory,
+                "definition": definition
             })
-            .then((response) => {
-                var responseObject = response;
-
-                var word = response[0].word;
-                var definition = response[0].meanings[0].definitions[0].definition;
-                var lexicalCategory = response[0].word;
-
-                this.setState({
-                    word: word.trim(),
-                    definition: definition.trim(),
-                });
-            });
-    };
-
-
-
-
+        }
+        catch (err) {
+            alert("Sorry This word is not available for now")
+            this.setState({
+                'text': '',
+                'isSearchPressed': false
+            })
+        }
+    }
 
     render() {
         return (
@@ -81,7 +80,6 @@ export default class HomeScreen extends Component {
                     <Text style={styles.definationtext}> Definition :{''} </Text>
                     <Text style={{ fontSize: 18 }}> {this.state.definition} </Text>
                 </View>
-
             </SafeAreaProvider>
 
         )
