@@ -12,6 +12,29 @@ export default class HomeScreen extends Component {
             word: '', definition: '', phonetics: ''
         }
     }
+
+    /*getWord = (word) => {
+        var url = 'https://api.dictionaryapi.dev/api/v2/entries/en/' + word;
+        return fetch(url)
+            .then((data) => {
+                return data.json();
+            })
+            .then((response) => {
+                var responseObject = response;
+
+                var word = response[0].word;
+                var definition = response[0].meanings[0].definitions[0].definition;
+                var lexicalCategory = response[0].word;
+
+                this.setState({
+                    word: word.trim(),
+                    definition: definition.trim(),
+                });
+            });
+    };*/
+
+
+
     getWord = (word) => {
         var searchKeyword = word.toLowerCase()
         var url = "https://rupinwhitehatjr.github.io/dictionary/" + searchKeyword + "json"
