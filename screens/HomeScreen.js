@@ -24,6 +24,7 @@ export default class HomeScreen extends Component {
             }
         })
             .then((response) => {
+                // console.log(response)
                 var responseObject = response
 
                 if (responseObject) {
