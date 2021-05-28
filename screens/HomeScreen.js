@@ -13,7 +13,7 @@ export default class HomeScreen extends Component {
         }
     }
 
-    /*getWord = (word) => {
+    getWord = (word) => {
         var url = 'https://api.dictionaryapi.dev/api/v2/entries/en/' + word;
         return fetch(url)
             .then((data) => {
@@ -31,45 +31,11 @@ export default class HomeScreen extends Component {
                     definition: definition.trim(),
                 });
             });
-    };*/
+    };
 
 
 
-    getWord = (word) => {
-        var searchKeyword = word.toLowerCase()
-        var url = "https://rupinwhitehatjr.github.io/dictionary/" + searchKeyword + "json"
-        return fetch(url).then((data) => {
-            if (data.status === 200) {
-                return data.json()
-            }
-            else {
-                return null
-            }
-        })
-            .then((response) => {
-                // console.log(response)
-                var responseObject = response
 
-                if (responseObject) {
-                    var wordData = responseObject.definitions[0];
-                    var definition = wordData.description;
-                    var lexicalCategory = wordData.wordtype;
-
-                    this.setState({
-                        "word": this.state.text,
-                        "definition": definition,
-                        "lexicalCategory": lexicalCategory
-                    })
-                } else {
-                    this.setState({
-                        "word": this.state.text,
-                        "definition": "Not Found",
-                    })
-                }
-
-            })
-
-    }
 
     render() {
         return (
